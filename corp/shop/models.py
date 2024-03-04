@@ -106,7 +106,7 @@ class Product(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("product-detail", args=[str(self.slug)])
+        return reverse("shop:product-detail", args=[str(self.slug)])
 
 
 class ProductManager(models.Manager):
