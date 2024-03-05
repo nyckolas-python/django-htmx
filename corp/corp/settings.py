@@ -22,6 +22,7 @@ INSTALLED_APPS = [
 
     # apps
     'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ TEMPLATES = [
 
                 #Custom Context Processors
                 'shop.context_processors.categories',
+                'cart.context_processors.cart',
             ],
         },
     },
