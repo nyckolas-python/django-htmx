@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     # apps
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
-    'account.apps.CartConfig',
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +147,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mymail@gmail.com'
-os.environ['EMAIL_HOST_PASSWORD']
-# EMAIL_HOST_PASSWORD = 'mYC00lP4ssw0rd'
+# os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_PASSWORD = 'mYC00lP4ssw0rd'
 EMAIL_USE_TLS = True
