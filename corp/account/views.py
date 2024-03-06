@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def register_user(request):
+    ...
+
+def login_user(request):
+    ...
+
+def logout_user(request):
+    ...
