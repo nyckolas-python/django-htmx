@@ -22,6 +22,8 @@ INSTALLED_APPS = [
 
     #third party libraries
     'mathfilters',
+    'crispy_forms',
+    "crispy_bootstrap5",
 
     # apps
     'shop.apps.ShopConfig',
@@ -70,6 +72,8 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -85,12 +89,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Project Internal Settings
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = '/static/'
@@ -99,4 +101,6 @@ STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
