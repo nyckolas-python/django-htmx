@@ -65,3 +65,34 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect("shop:products")
+
+
+@login_required(login_url="account:login")
+def dashboard_user(request):
+    return render(request, "account/dashboard/dashboard.html")
+
+
+@login_required(login_url="account:login")
+def profile_user(request):
+
+    if request.method == "POST":
+        form = UserUpdateForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect("account:dashboard")
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    context = {"form": form}
+
+    return render(request, "account/dashboard/profile-management.html", context)
+
+
+@login_required(login_url="account:login")
+def delete_user(request):
+    user = User.objects.get(id=request.user.id)
+    if request.method == "POST":
+        user.delete()
+        return redirect("shop:products")
+    return render(request, "account/dashboard/account-delete.html")
