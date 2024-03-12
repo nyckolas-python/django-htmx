@@ -1,14 +1,14 @@
-import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import environ
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+env.read_env(BASE_DIR / '.env')
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-db0swg__(z!#fk6gvu%w89+%md@qi3jc14n+)$wagbl92cj@td'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -112,41 +112,44 @@ def email_verified_callback(user):
     user.is_active = True
 
 
-def password_change_callback(user, password):
-    user.set_password(password)
+# def password_change_callback(user, password):
+#     user.set_password(password)
 
 
 # Global Package Settings
-EMAIL_FROM_ADDRESS = 'noreply@aliasaddress.com'  # mandatory
-EMAIL_PAGE_DOMAIN = 'https://mydomain.com/'  # mandatory (unless you use a custom link)
+EMAIL_FROM_ADDRESS = 'ngstaffingware.dev@gmail.com'  # mandatory
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'  # mandatory (unless you use a custom link)
 EMAIL_MULTI_USER = False  # optional (defaults to False)
 
 # Email Verification Settings (mandatory for email sending)
 EMAIL_MAIL_SUBJECT = 'Confirm your email {{ user.username }}'
-EMAIL_MAIL_HTML = 'mail_body.html'
-EMAIL_MAIL_PLAIN = 'mail_body.txt'
+EMAIL_MAIL_HTML = 'account/email/mail_body.html'
+EMAIL_MAIL_PLAIN = 'account/email/mail_body.txt'
 EMAIL_MAIL_TOKEN_LIFE = 60 * 60  # one hour
 
 # Email Verification Settings (mandatory for builtin view)
-EMAIL_MAIL_PAGE_TEMPLATE = 'email_success_template.html'
+EMAIL_MAIL_PAGE_TEMPLATE = 'account/email/email_success_template.html'
 EMAIL_MAIL_CALLBACK = email_verified_callback
 
-# Password Recovery Settings (mandatory for email sending)
-EMAIL_PASSWORD_SUBJECT = 'Change your password {{ user.username }}'
-EMAIL_PASSWORD_HTML = 'password_body.html'
-EMAIL_PASSWORD_PLAIN = 'password_body.txt'
-EMAIL_PASSWORD_TOKEN_LIFE = 60 * 10  # 10 minutes
+# # Password Recovery Settings (mandatory for email sending)
+# EMAIL_PASSWORD_SUBJECT = 'Change your password {{ user.username }}'
+# EMAIL_PASSWORD_HTML = 'password_body.html'
+# EMAIL_PASSWORD_PLAIN = 'password_body.txt'
+# EMAIL_PASSWORD_TOKEN_LIFE = 60 * 10  # 10 minutes
 
 # Password Recovery Settings (mandatory for builtin view)
-EMAIL_PASSWORD_PAGE_TEMPLATE = 'password_changed_template.html'
-EMAIL_PASSWORD_CHANGE_PAGE_TEMPLATE = 'password_change_template.html'
-EMAIL_PASSWORD_CALLBACK = password_change_callback
+# EMAIL_PASSWORD_PAGE_TEMPLATE = 'password_changed_template.html'
+# EMAIL_PASSWORD_CHANGE_PAGE_TEMPLATE = 'password_change_template.html'
+# EMAIL_PASSWORD_CALLBACK = password_change_callback
 
 # For Django Email Backend
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'mymail@gmail.com'
-# os.environ['EMAIL_HOST_PASSWORD']
+
+EMAIL_HOST_USER = 'ngstaffingware.dev@gmail.com'
+# EMAIL_HOST_USER = 'mymail@gmail.com'
+EMAIL_HOST_USER = env('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_PASSWORD = 'mYC00lP4ssw0rd'
 EMAIL_USE_TLS = True
