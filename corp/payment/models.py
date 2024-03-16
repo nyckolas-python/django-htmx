@@ -18,7 +18,7 @@ class ShippingAddress(models.Model):
     # default = models.BooleanField(default=False)
 
     def __str__(self):
-        return "Shipping Address" + str(self.id)
+        return "Shipping Address #" + str(self.id)
 
 
 class Order(models.Model):
@@ -30,7 +30,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "Order" + str(self.id)
+        return "Order #" + str(self.id)
 
 
 class OrderItem(models.Model):
@@ -41,4 +41,4 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return "OrderItem" + str(self.id)
+        return "OrderItem #" + str(self.id)
