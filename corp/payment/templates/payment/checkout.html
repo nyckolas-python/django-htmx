@@ -40,8 +40,8 @@
 
                         <input class="form-control validate" id="city" type="text" placeholder="City*" autocomplete="off" value="{{shipping_address.city}}" required>
 
-                    </div> {% endcomment %}
-                    <br>
+                    </div>
+                    <br> {% endcomment %}
                     <div class="form-field">
                         <input class="form-control" id="state" type="text" placeholder="Country" autocomplete="off" value="{{shipping_address.country}}">
                     </div>
@@ -71,7 +71,7 @@
                 street_address: $('#address1').val(),
                 apartment_address: $('#address2').val(),
                 // city: $('#city').val(),
-                contry: $('#state').val(),
+                country: $('#state').val(),
                 zipcode: $('#zipcode').val(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'payment'
