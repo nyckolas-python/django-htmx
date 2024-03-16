@@ -9,8 +9,8 @@ urlpatterns = [
     # Registration & Verification
     path('register/', views.register_user, name='register'),
     path('email-verification-sent/',
-        lambda request:render(request, 'account/email/email-verification-sent.html'), 
-        name='email-verification-sent'
+            lambda request:render(request, 'account/email/email-verification-sent.html'),
+            name='email-verification-sent'
         ),
 
     # Login & Logout

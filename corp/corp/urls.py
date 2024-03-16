@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import include, path
 from django_email_verification import urls as email_urls
 
 urlpatterns = [
+    path('', lambda request: redirect('shop:products', permanent=False)),
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls'), name='shop'),
     path('cart/', include('cart.urls'), name='cart'),
