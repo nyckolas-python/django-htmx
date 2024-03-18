@@ -15,6 +15,9 @@ migrations/
 !*/static/media/.gitkeep
 */static/media/*
 
+# fonts
+*/static/fonts/*
+
 # Distribution / packaging
 .Python
 build/
