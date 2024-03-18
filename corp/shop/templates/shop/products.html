@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
+{% load thumbnail %}
+
 {% block content %}
 
 <!-- Introduction section -->
-
+{% if not request.user.is_authenticated %}
 <section class="py-4 text-center container">
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
@@ -19,6 +21,7 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- All products section -->
 
@@ -31,32 +34,27 @@
         <br />
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-            {% for product in products %}
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img
-                        class="img-fluid"
-                        alt="Responsive image"
-                        src="{{ product.image.url }}"
-                    />
-                    <div class="card-body">
-                        <p class="card-text">
-                            <a
-                                class="text-black text-decoration-none fs-4"
-                                href="{{product.get_absolute_url}}"
-                                >{{product.title|capfirst}}</a
-                            >
-                        </p>
-                        <div
-                            class="d-flex justify-content-between align-items-center badge bg-success text-wrap"
-                            style="width: 6rem"
-                        >
-                            <h5>$ {{product.price}}</h5>
-                        </div>
-                    </div>
+
+        {% for product in products %}
+        <div class="col">
+            <a class="text-black  text-decoration-none fs-4" href="{{product.get_absolute_url}}">
+            <div class="card shadow-sm h-100">
+                {% thumbnail product.image "300x300" as im %}
+                <img class="img-fluid h-100" alt="Responsive image" src="{{ im.url }}" />
+                {% endthumbnail %}
+                <div class="card-body">
+                <p class="card-text ">
+                    {{product.title|capfirst}}
+                </p>
+                <div class="d-flex justify-content-between align-items-center badge search-button text-wrap text-dark"
+                    style="width: 6rem;">
+                    <h5>$ {{product.price}}</h5>
+                </div>
                 </div>
             </div>
-            {% endfor %}
+            </a>
+        </div>
+        {% endfor %}
         </div>
     </div>
 </section>

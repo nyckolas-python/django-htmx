@@ -1,11 +1,20 @@
-{% include "base.html" %}
+{%  extends "base.html" %}
 
 {% load static %}
 
-{% load crispy_forms_tags %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'payment/css/payment-success-fail.css' %}">
+{% endblock head %}
 
 {% block content %}
 
-<h1  class="text-center">Payment failed</h1>
-
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="message-box _success _failed">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+            <h2> Your payment failed </h2>
+            <p> Try again later </p>
+        </div>
+    </div>
+</div>
 {% endblock content %}
