@@ -5,14 +5,17 @@ from django.shortcuts import redirect
 from django.urls import include, path
 from django_email_verification import urls as email_urls
 
+from . import views
+
 urlpatterns = [
-    path('', lambda request: redirect('shop:products', permanent=False)),
+    # path('', lambda request: redirect('shop:products', permanent=False)),
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls'), name='shop'),
     path('cart/', include('cart.urls'), name='cart'),
     path('account/', include('account.urls'), name='account'),
     path('email/', include(email_urls), name='email-verification'),
     path('payment/', include('payment.urls'), name='payment'),
+    path('', views.index, name='index'),
 ]
 
 if settings.DEBUG:
