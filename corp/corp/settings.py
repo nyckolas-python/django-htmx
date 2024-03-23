@@ -21,13 +21,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #third party libraries
+    # third party libraries
     'mathfilters',
     'crispy_forms',
     "crispy_bootstrap5",
     'django_email_verification',
     'django_google_fonts',
     'sorl.thumbnail',
+    'celery',
+    'django_celery_results',
+    'django_celery_beat',
 
     # apps
     'shop.apps.ShopConfig',
@@ -170,3 +173,17 @@ STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 # FIXME: django_google_fonts: Failed to get font: 'Montserrat:wght@300,400' got status code: 404
 GOOGLE_FONTS = ['Montserrat', 'Roboto']
 GOOGLE_FONTS_DIR = BASE_DIR / 'static'
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+
+# CELERY_BEAT_SCHEDULE = {
+#     "sample_task": {
+#         "task": "core.tasks.sample_task",
+#         "schedule": crontab(minute="*/1"),
+#     },
+# }
