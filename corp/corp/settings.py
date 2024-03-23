@@ -167,5 +167,6 @@ STRIPE_API_VERSION = env('STRIPE_API_VERSION')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 
 # Google Fonts
-GOOGLE_FONTS = ['Montserrat:wght@300,400', 'Roboto']
+# FIXME: django_google_fonts: Failed to get font: 'Montserrat:wght@300,400' got status code: 404
+GOOGLE_FONTS = ['Montserrat', 'Roboto']
 GOOGLE_FONTS_DIR = BASE_DIR / 'static'
