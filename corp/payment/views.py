@@ -73,7 +73,12 @@ def complete_order(request):
 
             for item in cart:
                 OrderItem.objects.create(
-                    order=order, product=item['product'], price=item['price'], quantity=item['qty'], user=request.user)
+                    order=order,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['qty'],
+                    user=request.user
+                )
         else:
             order = Order.objects.create(
                 shipping_address=shipping_address, amount=total_price)
@@ -106,10 +111,11 @@ def complete_order(request):
                         'quantity': item['qty'],
                     })
 
+                session_data['client_reference_id'] = order.id
                 session = stripe.checkout.Session.create(**session_data)
                 return redirect(session.url, code=303)
 
-            # TODO: add fondy payment
+            # TODO: add https://portal.fondy.eu/ payment
             case "fondy-payment":
                 pass
 
