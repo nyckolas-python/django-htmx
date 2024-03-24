@@ -63,7 +63,7 @@ def complete_order(request):
                 'street_address': street_address,
                 'apartment_address': apartment_address,
                 'country': country,
-                'zip': zipcode
+                'zipcode': zipcode
             }
         )
 
