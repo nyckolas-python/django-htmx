@@ -18,10 +18,9 @@ stripe.api_version = settings.STRIPE_API_VERSION
 
 def checkout(request):
     if request.user.is_authenticated:
-        shipping_address = ShippingAddress.objects.filter(user=request.user)
-        if shipping_address:
-            return render(request, 'payment/checkout.html', {'shipping_address': shipping_address})
-    return render(request, 'payment/checkout.html')
+        shipping_address, _ = ShippingAddress.objects.get_or_create(user=request.user)
+
+        return render(request, 'payment/checkout.html', {'shipping_address': shipping_address})
 
 
 @login_required(login_url='account:login')
