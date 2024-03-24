@@ -12,4 +12,5 @@ urlpatterns = [
     path('payment-success/', views.payment_success, name='payment-success'),
     path('payment-failed/', views.payment_failed, name='payment-failed'),
     path('webhook-stripe/', webhooks.stripe_webhook, name='webhook-stripe'),
+    path("order/<int:order_id>/pdf/", views.admin_order_pdf, name="admin_order_pdf"),
 ]
