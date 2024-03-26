@@ -12,18 +12,18 @@ from .models import Order, OrderItem, ShippingAddress
 
 def export_paid_to_csv(modeladmin, request, queryset):
     opts = modeladmin.model._meta
-    content_disposition = f"attachment; filename=Paid{opts.verbose_name}.csv"
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = content_disposition
+    content_disposition = f'attachment; filename=Paid{opts.verbose_name}.csv'
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = content_disposition
     writer = csv.writer(response)
     fields = [
         field
         for field in opts.get_fields()
-        if not field.many_to_many and not field.one_to_many 
+        if not field.many_to_many and not field.one_to_many
     ]
     writer.writerow([field.verbose_name for field in fields])
     for obj in queryset:
-        if not getattr(obj, "paid"):
+        if not getattr(obj, 'paid'):
             continue
         data_row = []
         for field in fields:
@@ -39,14 +39,12 @@ export_paid_to_csv.short_description = "Export Paid to CSV"
 
 def export_not_paid_to_csv(modeladmin, request, queryset):
     opts = modeladmin.model._meta
-    content_disposition = f"attachment; filename=NotPaid{opts.verbose_name}.csv"
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = content_disposition
+    content_disposition = f'attachment; filename=NotPaid{opts.verbose_name}.csv'
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = content_disposition
     writer = csv.writer(response)
     fields = [
-        field
-        for field in opts.get_fields()
-        if not field.many_to_many and not field.one_to_many 
+        field for field in opts.get_fields() if not field.many_to_many and not field.one_to_many
     ]
     writer.writerow([field.verbose_name for field in fields])
     for obj in queryset:
@@ -72,11 +70,11 @@ order_pdf.short_description = 'Invoice'
 
 class ShippingAdressAdmin(admin.ModelAdmin):
     list_display = ('full_name_bold','user', 'email', 'country', 'city', 'zipcode')
-    empty_value_display = "-empty-"
+    empty_value_display = '-empty-'
     list_display_links = ('full_name_bold',)
     list_filter = ('user', 'country', 'city')
 
-    @admin.display(description="Full Name", empty_value="Noname")
+    @admin.display(description='Full Name', empty_value='Noname')
     def full_name_bold(self, obj):
         return format_html("<b style='font-weight: bold;'>{}</b>", obj.full_name)
 
@@ -86,7 +84,7 @@ class OrderItemInline(admin.TabularInline):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return ['price', 'product', "quantity", "user"]
+            return ['price', 'product', 'quantity', 'user']
         return super().get_readonly_fields(request, obj)
 
 class OrderAdmin(admin.ModelAdmin):

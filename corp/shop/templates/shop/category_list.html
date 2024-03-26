@@ -7,7 +7,7 @@
 <main>
     <div class="album py-5 bg-light">
         <div class="container">
-            <div class="pb-3 h5">{{category.name|capfirst}}</div>
+            <div class="pb-3 h5">{{ category.name|capfirst }}</div>
 
             <hr />
 
@@ -21,22 +21,22 @@
                         <img
                             class="img-fluid"
                             alt="Responsive image"
-                            src="{{ product.image.url }}"
+                            src="{{ product.full_image_url }}"
                         />
 
                         <div class="card-body">
                             <p class="card-text">
                                 <a
                                     class="text-info text-decoration-none"
-                                    href="{{product.get_absolute_url}}"
+                                    href="{{ product.get_absolute_url }}"
                                 >
-                                    {{product.title|capfirst}}
+                                    {{ product.title|capfirst }}
                                 </a>
                             </p>
                             <div
                                 class="d-flex justify-content-between align-items-center"
                             >
-                                <h5>$ {{product.price}}</h5>
+                                <h5>$ {{ product.price }}</h5>
                             </div>
                         </div>
                     </div>

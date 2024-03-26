@@ -11,14 +11,14 @@ from .forms import LoginForm, UserCreateForm, UserUpdateForm
 
 def register_user(request):
 
-    if request.method == "POST":
+    if request.method == 'post':
         form = UserCreateForm(request.POST)
 
         if form.is_valid():
             form.save(commit=False)
-            user_email = form.cleaned_data.get("email")
-            user_username = form.cleaned_data.get("username")
-            user_password = form.cleaned_data.get("password1")
+            user_email = form.cleaned_data.get('email')
+            user_username = form.cleaned_data.get('username')
+            user_password = form.cleaned_data.get('password1')
 
             # Create new user
             user = User.objects.create_user(
@@ -29,11 +29,11 @@ def register_user(request):
 
             send_verify_email(user)
 
-            # return redirect("email-verification-sent")
+            # return redirect('email-verification-sent')
             return redirect('/account/email-verification-sent/')
     else:
         form = UserCreateForm()
-    return render(request, "account/registration/signup.html", {"form": form})
+    return render(request, 'account/registration/signup.html', {'form': form})
 
 
 def login_user(request):
@@ -41,58 +41,58 @@ def login_user(request):
     form = LoginForm()
 
     if request.user.is_authenticated:
-        return redirect("shop:products")
+        return redirect('shop:products')
 
-    if request.method == "POST":
+    if request.method == 'post':
 
         form = LoginForm(request.POST)
 
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return redirect("account:dashboard")
+            return redirect('account:dashboard')
         else:
             messages.info(request, "Username or Password is incorrect")
-            return redirect("account:login")
-    context = {"form": form}
-    return render(request, "account/login/login.html", context)
+            return redirect('account:login')
+    context = {'form': form}
+    return render(request, 'account/login/login.html', context)
 
 
 def logout_user(request):
     logout(request)
-    return redirect("shop:products")
+    return redirect('shop:products')
 
 
-@login_required(login_url="account:login")
+@login_required(login_url='account:login')
 def dashboard_user(request):
-    return render(request, "account/dashboard/dashboard.html")
+    return render(request, 'account/dashboard/dashboard.html')
 
 
-@login_required(login_url="account:login")
+@login_required(login_url='account:login')
 def profile_user(request):
 
-    if request.method == "POST":
+    if request.method == 'post':
         form = UserUpdateForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()
-            return redirect("account:dashboard")
+            return redirect('account:dashboard')
     else:
         form = UserUpdateForm(instance=request.user)
 
-    context = {"form": form}
+    context = {'form': form}
 
-    return render(request, "account/dashboard/profile-management.html", context)
+    return render(request, 'account/dashboard/profile-management.html', context)
 
 
-@login_required(login_url="account:login")
+@login_required(login_url='account:login')
 def delete_user(request):
     user = User.objects.get(id=request.user.id)
-    if request.method == "POST":
+    if request.method == 'post':
         user.delete()
-        return redirect("shop:products")
-    return render(request, "account/dashboard/account-delete.html")
+        return redirect('shop:products')
+    return render(request, 'account/dashboard/account-delete.html')

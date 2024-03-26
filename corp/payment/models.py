@@ -67,7 +67,7 @@ class Order(models.Model):
         return "Order" + str(self.id)
 
     def get_absolute_url(self):
-        return reverse("payment:order_detail", kwargs={"pk": self.pk})
+        return reverse('payment:order_detail', kwargs={'pk': self.pk})
 
     def get_total_cost_before_discount(self):
         return sum(item.get_cost() for item in self.items.all())

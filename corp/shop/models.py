@@ -25,7 +25,7 @@ class Category(models.Model):
 
     name = models.CharField(verbose_name="Category", max_length=255, db_index=True)
     parent = models.ForeignKey(
-        "self", on_delete=models.CASCADE, related_name="children", null=True, blank=True
+        'self', on_delete=models.CASCADE, related_name='children', null=True, blank=True
     )
     slug = models.SlugField(
         verbose_name="URL", max_length=255, unique=True, null=False, editable=True
@@ -37,7 +37,7 @@ class Category(models.Model):
     updated_at = models.DateTimeField(verbose_name="Date of update", auto_now=True)
 
     class Meta:
-        unique_together = ("slug", "parent")
+        unique_together = ('slug', 'parent')
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
@@ -52,14 +52,24 @@ class Category(models.Model):
             k = k.parent
         return " -> ".join(full_path[::-1])
 
+    @staticmethod
+    def _rand_slug():
+        """
+        Generates a random slug consisting of lowercase letters and digits.
+        Example:
+            >>> rand_slug()
+            'abc123'
+        """
+        return "".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(3))
+
     def save(self, *args, **kwargs):
         """
         Save the object with a generated slug if it does not already have one.
         """
         if not self.slug:
-            self.slug = slugify(rand_slug() + "-pickBetter" + self.name)
+            self.slug = slugify(self._rand_slug() + '-pickBetter' + self.name)
 
-        return super(Category, self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('shop:category-list', args=[str(self.slug)])
@@ -71,7 +81,7 @@ class Product(models.Model):
     """
 
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="products"
+        Category, on_delete=models.CASCADE, related_name='products'
     )
     title = models.CharField(verbose_name="Product", max_length=255, db_index=True)
     brand = models.CharField(
@@ -86,27 +96,45 @@ class Product(models.Model):
     )
     image = models.ImageField(
         verbose_name="Image",
-        upload_to="products/products/%Y/%m/%d",
-        null=True,
-        blank=True,
+        upload_to='images/products/%Y/%m/%d',
+        default='images/products/default.jpg'
     )
     available = models.BooleanField(verbose_name="Available", default=True)
 
     created_at = models.DateTimeField(
-        verbose_name="Date of creation", auto_now_add=True
+        verbose_name="Date of creation", auto_now_add=True, db_index=True
     )
     updated_at = models.DateTimeField(verbose_name="Date of update", auto_now=True)
 
     class Meta:
-        unique_together = ("slug", "category")
+        unique_together = ('slug', 'category')
         verbose_name = "Product"
         verbose_name_plural = "Products"
+        ordering = ['-created_at']
+
+    @property
+    def full_image_url(self):
+        """
+        Returns:
+            str: The full image URL.
+        """
+        return self.image.url if self.image else ''
+
+    def get_absolute_url(self):
+        return reverse('shop:product-detail', args=[str(self.slug)])
+
+    def get_discounted_price(self):
+        """
+        Calculates the discounted price based on the product's price and discount.
+
+        Returns:
+            decimal.Decimal: The discounted price.
+        """
+        discounted_price = self.price - (self.price * self.discount / 100)
+        return round(discounted_price, 2)
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        return reverse("shop:product-detail", args=[str(self.slug)])
 
 
 class ProductManager(models.Manager):

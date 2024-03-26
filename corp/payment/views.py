@@ -34,7 +34,7 @@ def shipping(request):
         shipping_address = None
     form = ShippingAddressForm(instance=shipping_address)
 
-    if request.method == 'POST':
+    if request.method == 'post':
         form = ShippingAddressForm(request.POST, instance=shipping_address)
         if form.is_valid():
             shipping_address = form.save(commit=False)
@@ -46,7 +46,7 @@ def shipping(request):
 
 
 def complete_order(request):
-    if request.method == 'POST':
+    if request.method == 'post':
         full_name = request.POST.get('name')
         email = request.POST.get('email')
         street_address = request.POST.get('street_address')
@@ -142,7 +142,7 @@ def admin_order_pdf(request, order_id):
     html = render_to_string('payment/order/pdf/pdf_invoice.html',
                             {'order': order})
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f"filename=order_{order.id}.pdf"
+    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
     # FIXME: fix static fullpath for pdf.css
     css_path = static('payment/css/pdf.css').lstrip('/')
     css_path = 'corp/payment/static/payment/css/pdf.css'

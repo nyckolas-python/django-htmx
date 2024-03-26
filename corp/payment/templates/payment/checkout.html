@@ -22,33 +22,33 @@
                     <hr>
                     <br>
                     <div class="form-field">
-                        <input class="form-control validate" id="name" type="text" placeholder="Full name*" autocomplete="off" value="{{shipping_address.full_name}}" required>
+                        <input class="form-control validate" id="name" type="text" placeholder="Full name*" autocomplete="off" value="{{ shipping_address.full_name }}" required>
                     </div>
                     <br>
                     <div class="form-field">
-                        <input class="form-control validate" id="email" type="email" placeholder="Email address*" autocomplete="off" value="{{shipping_address.email}}" required>
+                        <input class="form-control validate" id="email" type="email" placeholder="Email address*" autocomplete="off" value="{{ shipping_address.email }}" required>
                     </div>
                     <br>
                     <div class="form-field">
-                        <input class="form-control validate" id="address1" type="text" placeholder="Street address*" autocomplete="off" value="{{shipping_address.street_address}}" required>
+                        <input class="form-control validate" id="address1" type="text" placeholder="Street address*" autocomplete="off" value="{{ shipping_address.street_address }}" required>
                     </div>
                     <br>
                     <div class="form-field">
-                        <input class="form-control validate" id="address2" type="text" placeholder="Apartment address" autocomplete="off" value="{{shipping_address.apartment_address}}" required>
+                        <input class="form-control validate" id="address2" type="text" placeholder="Apartment address" autocomplete="off" value="{{ shipping_address.apartment_address }}" required>
                     </div>
                     <br>
-                    {% comment %} <div class="form-field">
+                    <div class="form-field">
 
-                        <input class="form-control validate" id="city" type="text" placeholder="City*" autocomplete="off" value="{{shipping_address.city}}" required>
+                        <input class="form-control validate" id="city" type="text" placeholder="City*" autocomplete="off" value="{{ shipping_address.city }}" required>
 
-                    </div>
-                    <br> {% endcomment %}
-                    <div class="form-field">
-                        <input class="form-control" id="state" type="text" placeholder="Country" autocomplete="off" value="{{shipping_address.country}}">
                     </div>
                     <br>
                     <div class="form-field">
-                        <input class="form-control" id="zipcode" type="text" placeholder="Zip code (Optional)" autocomplete="off" value="{{shipping_address.zipcode}}">
+                        <input class="form-control" id="state" type="text" placeholder="Country" autocomplete="off" value="{{ shipping_address.country }}">
+                    </div>
+                    <br>
+                    <div class="form-field">
+                        <input class="form-control" id="zipcode" type="text" placeholder="Zip code (Optional)" autocomplete="off" value="{{ shipping_address.zipcode }}">
                     </div>
                 </div>
                 <br>
