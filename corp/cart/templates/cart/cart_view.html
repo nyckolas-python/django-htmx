@@ -38,7 +38,7 @@
             <div class="col-6">Product</div>
 
             <div class="col-6 text-end">
-                {%if product.discount%}
+                {% if product.discount %}
                 <span class="text-decoration-line-through fw-bold text-danger">$ {{ product.price|mul:item.qty }}</span>
                 <span class="h6 fw-bold">$ {{ product.get_discounted_price|mul:item.qty }}</span>
                 {% else%}

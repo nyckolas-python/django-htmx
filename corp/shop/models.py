@@ -1,6 +1,7 @@
 import random
 import string
 
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -94,10 +95,13 @@ class Product(models.Model):
     price = models.DecimalField(
         verbose_name="Price", max_digits=10, decimal_places=2, default=99.99
     )
+    discount = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     image = models.ImageField(
         verbose_name="Image",
         upload_to='images/products/%Y/%m/%d',
-        default='images/products/default.jpg'
+        default='images/products/no-image.webp'
     )
     available = models.BooleanField(verbose_name="Available", default=True)
 
