@@ -6,6 +6,7 @@ pgadmin/
 pgdata/
 data/
 # migrations/
+!*/media/images/products/no-image.webp
 */media/*
 
 # C extensions
@@ -14,6 +15,7 @@ data/
 # images
 !*/static/media/.gitkeep
 */static/media/*
+*/static/*
 
 # fonts
 */static/fonts/*
