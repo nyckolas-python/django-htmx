@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'celery',
     'django_celery_results',
     'django_celery_beat',
+    'django_htmx',
 
     # apps
     'shop.apps.ShopConfig',
@@ -45,6 +46,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

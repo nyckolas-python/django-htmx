@@ -23,6 +23,7 @@ django-crispy-forms==2.1
 django-email-verification==0.3.3
 django-environ==0.11.2
 django-google-fonts==0.0.3
+django-htmx==1.17.3
 django-mathfilters==1.0.0
 django-timezone-field==6.1.0
 django-weasyprint==2.3.0
