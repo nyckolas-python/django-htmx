@@ -1,9 +1,12 @@
 {% load thumbnail %}
 
+{% if not products %}
+There are no products {% if request.GET.q %}matching your search: "{{ request.GET.q }}".{% else%}yet.{% endif %}
+{% endif %}
 
 {% for product in products %}
 
-    {% if forloop.last %}
+    {% if forloop.last and 'q' not in request.GET %}
     <div class="col"
         hx-get="{% url 'shop:products' %}?page={{ page_obj.number|add:1 }}"
         hx-trigger="revealed"
