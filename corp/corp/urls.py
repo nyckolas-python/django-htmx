@@ -15,6 +15,7 @@ urlpatterns = [
     path('account/', include('account.urls'), name='account'),
     path('email/', include(email_urls), name='email-verification'),
     path('payment/', include('payment.urls'), name='payment'),
+    path('recommend/', include('recommend.urls'), name='recommend'),
     path('', views.index, name='index'),
 ]
 
