@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -25,7 +26,7 @@ INSTALLED_APPS = [
     # third party libraries
     'mathfilters',
     'crispy_forms',
-    "crispy_bootstrap5",
+    'crispy_bootstrap5',
     'django_email_verification',
     'django_google_fonts',
     'sorl.thumbnail',
@@ -33,6 +34,9 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'django_htmx',
+    'rest_framework',
+    'djoser',
+    'drf_yasg',
 
     # apps
     'shop.apps.ShopConfig',
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'payment.apps.PaymentConfig',
     'recommend.apps.RecommendConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,8 +131,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Crispy Forms
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Email Verification
 def email_verified_callback(user):
@@ -195,8 +200,34 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 # CELERY_BEAT_SCHEDULE = {
-#     "sample_task": {
-#         "task": "core.tasks.sample_task",
-#         "schedule": crontab(minute="*/1"),
+#     'sample_task': {
+#         'task': 'core.tasks.sample_task',
+#         'schedule': crontab(minute='*/1'),
 #     },
 # }
+
+# REST_FRAMEWORK Settings
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'api.permissions.IsAdminOrReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'api.pagination.StandardResultsSetPagination',
+    'PAGE_SIZE': 15,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'SERIALIZERS': {
+        'user_create': 'api.serializers.CustomUserCreateSerializer',
+    },
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
