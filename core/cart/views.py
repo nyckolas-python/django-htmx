@@ -18,7 +18,7 @@ def cart_view(request):
 def cart_add(request):
     cart = Cart(request)
 
-    if request.POST.get('action') == 'post':
+    if request.POST.get('action') == 'POST':
 
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
@@ -36,7 +36,7 @@ def cart_add(request):
 def cart_delete(request):
     cart = Cart(request)
 
-    if request.POST.get('action') == 'post':
+    if request.POST.get('action') == 'POST':
         product_id = int(request.POST.get('product_id'))
 
         cart.delete(product=product_id)
@@ -52,7 +52,7 @@ def cart_delete(request):
 def cart_update(request):
     cart = Cart(request)
 
-    if request.POST.get('action') == 'post':
+    if request.POST.get('action') == 'POST':
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
 

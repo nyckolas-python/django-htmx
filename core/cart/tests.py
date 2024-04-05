@@ -30,7 +30,7 @@ class CartAddViewTestCase(TestCase):
         self.category = Category.objects.create(name='Category 1')
         self.product = ProductProxy.objects.create(title='Example Product', price=10.0, category=self.category)
         self.factory = RequestFactory().post(reverse('cart:add-to-cart'), {
-            'action': 'post',
+            'action': 'POST',
             'product_id': self.product.id,
             'product_qty': 2,
         })
@@ -54,7 +54,7 @@ class CartDeleteViewTestCase(TestCase):
         self.product = ProductProxy.objects.create(title='Example Product', price=10.0, category=self.category)
 
         self.factory = RequestFactory().post(reverse('cart:delete-to-cart'), {
-            'action': 'post',
+            'action': 'POST',
             'product_id': self.product.id,
         })
         self.middleware  = SessionMiddleware(self.factory)
@@ -75,12 +75,12 @@ class CartUpdateViewTestCase(TestCase):
         self.category = Category.objects.create(name='Category 1')
         self.product = ProductProxy.objects.create(title='Example Product', price=10.0, category=self.category)
         self.factory = RequestFactory().post(reverse('cart:add-to-cart'), {
-            'action': 'post',
+            'action': 'POST',
             'product_id': self.product.id,
             'product_qty': 2,
         })
         self.factory = RequestFactory().post(reverse('cart:update-to-cart'), {
-            'action': 'post',
+            'action': 'POST',
             'product_id': self.product.id,
             'product_qty': 5,
         })

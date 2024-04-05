@@ -11,7 +11,7 @@ from .forms import LoginForm, UserCreateForm, UserUpdateForm
 
 def register_user(request):
 
-    if request.method == 'post':
+    if request.method == 'POST':
         form = UserCreateForm(request.POST)
 
         if form.is_valid():
@@ -43,7 +43,7 @@ def login_user(request):
     if request.user.is_authenticated:
         return redirect('shop:products')
 
-    if request.method == 'post':
+    if request.method == 'POST':
 
         form = LoginForm(request.POST)
 
@@ -75,7 +75,7 @@ def dashboard_user(request):
 @login_required(login_url='account:login')
 def profile_user(request):
 
-    if request.method == 'post':
+    if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=request.user)
 
         if form.is_valid():
@@ -92,7 +92,7 @@ def profile_user(request):
 @login_required(login_url='account:login')
 def delete_user(request):
     user = User.objects.get(id=request.user.id)
-    if request.method == 'post':
+    if request.method == 'POST':
         user.delete()
         return redirect('shop:products')
     return render(request, 'account/dashboard/account-delete.html')

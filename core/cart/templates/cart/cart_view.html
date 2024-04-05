@@ -118,12 +118,12 @@
         e.preventDefault();
 
         $.ajax({
-            type: 'post',
+            type: 'POST',
             url: '{% url "cart:delete-to-cart" %}',
             data: {
                 product_id: $(this).data('index'),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
-                action: 'post'
+                action: 'POST'
             },
             success: function(response){
                 document.getElementById('lblCartCount').textContent = response.qty
@@ -143,13 +143,13 @@
         var product_id = $(this).data('index')
 
         $.ajax({
-            type: 'post',
+            type: 'POST',
             url: '{% url "cart:update-to-cart" %}',
             data: {
                 product_id: $(this).data('index'),
                 product_qty: $('#select'+product_id+ ' option:selected').text(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
-                action: 'post'
+                action: 'POST'
             },
             success: function(response){
                 document.getElementById('lblCartCount').textContent = response.qty

@@ -88,13 +88,13 @@
         e.preventDefault();
 
         $.ajax({
-            type: 'post',
+            type: 'POST',
             url: '{% url "cart:add-to-cart" %}',
             data: {
                 product_id: $('#add-button').val(),
                 product_qty: $('#select option:selected').text(),
                 csrfmiddlewaretoken: '{{ csrf_token }}',
-                action: 'post'
+                action: 'POST'
             },
             success: function (response) {
                 document.getElementById('lblCartCount').textContent = response.qty
